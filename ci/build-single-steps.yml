@@ -21,6 +21,7 @@ steps:
 
 # Verify min agent version demands
 - script: npm run verifyMinAgentDemands
+  displayName: Verify all min agent demands are valid
 
 # Build
 - script: node make.js build --task "$(task)"
