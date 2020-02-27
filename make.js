@@ -713,11 +713,10 @@ target.verifyMinAgentDemands = function() {
             if (test('-f', taskJsonPath)) {
                 var taskDef = fileToJson(taskJsonPath);
                 
-                if (taskDef.minimumAgentVersion)
+                if (taskDef.minimumAgentVersion && 
+                    semver.gt(taskDef.minimumAgentVersion, agentVersion))
                 {
-                    if (semver.gt(taskDef.minimumAgentVersion, agentVersion)) {
-                        tl.error(`Error! Task ${taskName} has a minimum agent version of ${taskDef.minimumAgentVersion} but the latest version of the Agent is ${agentVersion}.`);
-                    }
+                    tl.error(`Error! Task ${taskName} has a minimum agent version of ${taskDef.minimumAgentVersion} but the latest version of the Agent is ${agentVersion}.`);
                 }
             }
         });
