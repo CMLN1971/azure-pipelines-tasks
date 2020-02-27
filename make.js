@@ -716,7 +716,7 @@ target.verifyMinAgentDemands = function() {
                 if (taskDef.minimumAgentVersion && 
                     semver.gt(taskDef.minimumAgentVersion, agentVersion))
                 {
-                    tl.error(`Error! Task ${taskName} has a minimum agent version of ${taskDef.minimumAgentVersion} but the latest version of the Agent is ${agentVersion}.`);
+                    tl.setResult(tl.TaskResult.Failed, `Error! Task ${taskName} has a minimum agent version of ${taskDef.minimumAgentVersion} but the latest version of the Agent is ${agentVersion}.`);
                 }
             }
         });
