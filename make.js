@@ -25,6 +25,7 @@ var semver = require('semver');
 var util = require('./make-util');
 var admzip = require('adm-zip');
 const { Octokit } = require("@octokit/rest");
+var tl = require('azure-pipelines-task-lib/task');
 
 // util functions
 var cd = util.cd;
@@ -703,7 +704,6 @@ target.verifyMinAgentDemands = function() {
         console.log(`Latest version of the Agent that's fully rolled out is ${agentVersion}.`);
 
         // Iterate all tasks and make sure none of them depend on a version higher than what's rolled out
-        var invalidMinAgentDemandsExist = false;
         taskList.forEach(function(taskName) {
             var taskPath = path.join(__dirname, 'Tasks', taskName);
             ensureExists(taskPath);
@@ -716,15 +716,10 @@ target.verifyMinAgentDemands = function() {
                 if (taskDef.minimumAgentVersion)
                 {
                     if (semver.gt(taskDef.minimumAgentVersion, agentVersion)) {
-                        console.log(`Error! Task ${taskName} has a minimum agent version of ${taskDef.minimumAgentVersion} but the latest version of the Agent is ${agentVersion}.`);
-                        invalidMinAgentDemandsExist = true;
+                        tl.error(`Error! Task ${taskName} has a minimum agent version of ${taskDef.minimumAgentVersion} but the latest version of the Agent is ${agentVersion}.`);
                     }
                 }
             }
         });
-
-        if (invalidMinAgentDemandsExist) {
-            exit(1);
-        }
     });
 }

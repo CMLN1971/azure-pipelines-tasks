@@ -33,6 +33,7 @@
   "homepage": "https://github.com/Microsoft/azure-pipelines-tasks",
   "devDependencies": {
     "adm-zip": "0.4.13",
+    "azure-pipelines-task-lib": "2.9.3",
     "markdown-toc": "^1.2.0",
     "minimatch": "3.0.2",
     "minimist": "1.1.1",
