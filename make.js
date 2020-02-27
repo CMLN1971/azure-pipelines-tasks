@@ -726,9 +726,5 @@ target.verifyMinAgentDemands = function() {
         if (invalidMinAgentDemandsExist) {
             exit(1);
         }
-    })
-    .catch(error => {
-        console.log("Error");
-        console.log(JSON.stringify(error));
     });
 }
